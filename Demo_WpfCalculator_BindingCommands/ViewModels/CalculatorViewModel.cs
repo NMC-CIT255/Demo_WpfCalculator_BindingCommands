@@ -39,7 +39,7 @@ namespace Demo_WpfCalculator_BindingCommands.ViewModels
 
         public CalculatorViewModel()
         {
-            _displayContent = "9999";
+            _displayContent = "Hello Amy!";
             Button1Command = new RelayCommand(new Action<object>(ChangeScreen));
         }
 
