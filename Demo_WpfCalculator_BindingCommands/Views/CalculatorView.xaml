@@ -109,17 +109,17 @@
                         Rows="4"
                         Columns="3"
                         Height="300">
-                        <Button Content="1" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding Button1Command}"/>
-                        <Button Content="2" Style="{StaticResource MainPanelButtonStyle}" />
-                        <Button Content="3" Style="{StaticResource MainPanelButtonStyle}" />
-                        <Button Content="4" Style="{StaticResource MainPanelButtonStyle}" />
-                        <Button Content="5" Style="{StaticResource MainPanelButtonStyle}" />
-                        <Button Content="6" Style="{StaticResource MainPanelButtonStyle}" />
-                        <Button Content="7" Style="{StaticResource MainPanelButtonStyle}" />
-                        <Button Content="8" Style="{StaticResource MainPanelButtonStyle}" />
-                        <Button Content="9" Style="{StaticResource MainPanelButtonStyle}" />
+                        <Button Content="1" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="1" />
+                        <Button Content="2" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="2" />
+                        <Button Content="3" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="3" />
+                        <Button Content="4" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="4" />
+                        <Button Content="5" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="5" />
+                        <Button Content="6" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="6" />
+                        <Button Content="7" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="7" />
+                        <Button Content="8" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="8" />
+                        <Button Content="9" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="9" />
                         <Button Content="." Style="{StaticResource MainPanelButtonStyle}" />
-                        <Button Content="0" Style="{StaticResource MainPanelButtonStyle}" />
+                        <Button Content="0" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="0" />
                         <Button Content="Backspace" Style="{StaticResource MainPanelButtonStyle}" />
                     </UniformGrid>
                 </StackPanel>

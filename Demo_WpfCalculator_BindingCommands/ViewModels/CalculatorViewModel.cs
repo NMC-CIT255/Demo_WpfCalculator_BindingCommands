@@ -10,18 +10,14 @@ namespace Demo_WpfCalculator_BindingCommands.ViewModels
 {
     public class CalculatorViewModel : ObservableObject
     {
-        private ICommand _button1Command;
+        public ICommand ButtonNumberCommand { get; set; }
 
-        public ICommand Button1Command
+        private string _operandString;
+
+        public string OperandString
         {
-            get
-            {
-                return _button1Command;
-            }
-            set
-            {
-                _button1Command = value;
-            }
+            get { return _operandString; }
+            set { _operandString = value; }
         }
 
 
@@ -40,12 +36,13 @@ namespace Demo_WpfCalculator_BindingCommands.ViewModels
         public CalculatorViewModel()
         {
             _displayContent = "Hello Amy!";
-            Button1Command = new RelayCommand(new Action<object>(ChangeScreen));
+            ButtonNumberCommand = new RelayCommand(new Action<object>(UpdateOperandString));
         }
 
-        private void ChangeScreen(object obj)
+        private void UpdateOperandString(object obj)
         {
-            DisplayContent = "Hello John!!";
+            _operandString += obj.ToString();
+            DisplayContent = _operandString;
         }
     }
 }
