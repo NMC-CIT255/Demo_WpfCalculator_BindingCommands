@@ -23,7 +23,7 @@ namespace Demo_WpfCalculator_BindingCommands.Views
         public CalculatorView()
         {
             InitializeComponent();
-            DataContext = new CalculatorViewModel();
+            //DataContext = new CalculatorViewModel();
         }
     }
 }

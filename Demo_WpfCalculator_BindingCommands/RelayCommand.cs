@@ -31,10 +31,6 @@ namespace Demo_WpfCalculator_BindingCommands
             {
                 _action(parameter);
             }
-            else
-            {
-                _action("Hello World");
-            }
         }
 
         #endregion

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Demo_WpfCalculator_BindingCommands.Views"
+        xmlns:viewModels="clr-namespace:Demo_WpfCalculator_BindingCommands.ViewModels"
         mc:Ignorable="d"
         Title="CalculatorView" 
                 Height="450" 
@@ -86,15 +87,21 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Window.Resources>
+
+    <Window.DataContext>
+        <viewModels:CalculatorViewModel/>
+    </Window.DataContext>
+
     <Grid>
         <Border
             Margin="10"
             Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel
                     Grid.Row="0"
@@ -103,7 +110,8 @@
                     <TextBox
                         Margin="20"
                         Height="40"
-                        Text="{Binding DisplayContent}">                        
+                        Text="{Binding DisplayContent}"
+                        IsReadOnly="True">
                     </TextBox>
                     <UniformGrid
                         Rows="4"
@@ -120,8 +128,46 @@
                         <Button Content="9" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="9" />
                         <Button Content="." Style="{StaticResource MainPanelButtonStyle}" />
                         <Button Content="0" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="0" />
-                        <Button Content="Backspace" Style="{StaticResource MainPanelButtonStyle}" />
+                        <Button Content="CE" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="CE" />
                     </UniformGrid>
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="10"
+                    Orientation="Vertical">
+                    <StackPanel
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                        <UniformGrid
+                        Rows="5"
+                        Columns="1"
+                        Height="300">
+                            <Button Content="+" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonOperationCommand}" CommandParameter="+" />
+                            <Button Content="-" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonOperationCommand}" CommandParameter="-" />
+                            <Button Content="*" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonOperationCommand}" CommandParameter="*" />
+                            <Button Content="/" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonOperationCommand}" CommandParameter="/" />
+                            <Button Content="%" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonOperationCommand}" CommandParameter="%" />
+                        </UniformGrid>
+                        <UniformGrid
+                        Rows="5"
+                        Columns="1"
+                        Height="300">
+                            <Button Content="Sin" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonOperationCommand}" CommandParameter="Sin" />
+                            <Button Content="Cos" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonOperationCommand}" CommandParameter="Cos" />
+                            <Button Content="Tan" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonOperationCommand}" CommandParameter="Tan" />
+                            <Button Content="^2" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonOperationCommand}" CommandParameter="Sqr" />
+                            <Button Content="SqRt" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonOperationCommand}" CommandParameter="SqrRt" />
+                        </UniformGrid>                        
+                    </StackPanel>
+                    <Button 
+                        Width="220"
+                        Margin="10"
+                        Background="Gray"
+                        Content="=" 
+                        Style="{StaticResource MainPanelButtonStyle}" 
+                        Command="{Binding ButtonOperationCommand}" 
+                        CommandParameter="=" />
                 </StackPanel>
             </Grid>
         </Border>
