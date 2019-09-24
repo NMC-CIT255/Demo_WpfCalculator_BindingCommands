@@ -126,7 +126,7 @@
                         <Button Content="7" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="7" />
                         <Button Content="8" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="8" />
                         <Button Content="9" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="9" />
-                        <Button Content="." Style="{StaticResource MainPanelButtonStyle}" />
+                        <Button Content="." Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="."/>
                         <Button Content="0" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="0" />
                         <Button Content="CE" Style="{StaticResource MainPanelButtonStyle}" Command="{Binding ButtonNumberCommand}" CommandParameter="CE" />
                     </UniformGrid>

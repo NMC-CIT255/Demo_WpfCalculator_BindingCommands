@@ -12,6 +12,7 @@ namespace Demo_WpfCalculator_BindingCommands.ViewModels
     {
         private enum Operation
         {
+            None,
             Add,
             Subtract,
             Multiply,
@@ -21,30 +22,33 @@ namespace Demo_WpfCalculator_BindingCommands.ViewModels
             Cos,
             Tan,
             Square,
-            SquareRoot
+            SquareRoot,
+            Equal
         }
 
         private Dictionary<string, Operation> BinaryOperations = new Dictionary<string, Operation>()
         {
             { "+", Operation.Add },
-            { "-", Operation.Add },
-            { "*", Operation.Add },
-            { "/", Operation.Add },
-            { "%", Operation.Add }
+            { "-", Operation.Subtract },
+            { "*", Operation.Multiply },
+            { "/", Operation.Divide },
+            { "%", Operation.Percent },
+            { "=", Operation.Equal }
         };
 
         private Dictionary<string, Operation> UnaryOperations = new Dictionary<string, Operation>()
         {
-            { "Sin", Operation.Add },
-            { "Cos", Operation.Add },
-            { "Tan", Operation.Add },
-            { "Sqr", Operation.Add },
-            { "SqrRt", Operation.Add }
+            { "Sin", Operation.Sin },
+            { "Cos", Operation.Cos },
+            { "Tan", Operation.Tan },
+            { "Sqr", Operation.Square },
+            { "SqrRt", Operation.SquareRoot }
         };
 
         private static string _operandString;
         private static double _operand1;
         private static double _operand2;
+        private static Operation _binaryOperator;
 
         public ICommand ButtonNumberCommand { get; set; }
         public ICommand ButtonOperationCommand { get; set; }
@@ -95,51 +99,80 @@ namespace Demo_WpfCalculator_BindingCommands.ViewModels
 
             if (double.TryParse(_operandString, out double result))
             {
-                _operand1 = result;
-                _operandString = "";
-                DisplayContent = _operandString;
-
                 if (BinaryOperations.ContainsKey(operation))
                 {
-
+                    if (operation == "=")
+                    {
+                        _operand2 = result;
+                        DisplayContent = ProcessBinaryOperation(_binaryOperator).ToString();
+                    }
+                    else
+                    {
+                        _operand1 = result;
+                        _binaryOperator = BinaryOperations[operation];
+                        _operandString = "";
+                        DisplayContent = "";
+                    }
                 }
                 else if (UnaryOperations.ContainsKey(operation))
                 {
+                    _operand1 = result;
                     DisplayContent = ProcessUnaryOperation(UnaryOperations[operation]).ToString();
                 }
                 else
                 {
-                    DisplayContent = "Unknown Error Encountered";
+                    DisplayContent = "Unknown Operation Encountered";
                 }
+
+                //
+                // set current number string to new number string
+                //
+                _operandString = DisplayContent;
             }
             else
             {
-                DisplayContent = "Unknown Error Encountered";
+                DisplayContent = "Please enter a valid number.";
             }
         }
 
-        static double ProcessUnaryOperation(Operation operation)
+        private double ProcessUnaryOperation(Operation operation)
         {
-            double result = 0;
-
             switch (operation)
             {
                 case Operation.Sin:
-                    result = Math.Sin(_operand1);
-                    break;
+                    return Math.Sin(_operand1);
                 case Operation.Cos:
-                    break;
+                    return Math.Cos(_operand1);
                 case Operation.Tan:
-                    break;
+                    return Math.Tan(_operand1);
                 case Operation.Square:
-                    break;
+                    return Math.Pow(_operand1, 2);
                 case Operation.SquareRoot:
-                    break;
+                    return Math.Sqrt(_operand1);
                 default:
-                    break;
+                    DisplayContent = "Unknown Operation Encountered";
+                    return 0;
             }
+        }
 
-            return result;
+        private double ProcessBinaryOperation(Operation operation)
+        {
+            switch (operation)
+            {
+                case Operation.Add:
+                    return _operand1 + _operand2;
+                case Operation.Subtract:
+                    return _operand1 - _operand2;
+                case Operation.Multiply:
+                    return _operand1 * _operand2;
+                case Operation.Divide:
+                    return _operand1 / _operand2;
+                case Operation.Percent:
+                    return _operand1 * (_operand2 / 100);
+                default:
+                    DisplayContent = "Unknown Operation Encountered";
+                    return 0;
+            }
         }
     }
 }
