@@ -93,40 +93,58 @@ namespace Demo_WpfCalculator_BindingCommands.ViewModels
             DisplayContent = _operandString;
         }
 
+        private Operation CurrentOperator(string operationString)
+        {
+            if (BinaryOperations.ContainsKey(operationString))
+            {
+                return BinaryOperations[operationString];
+            }
+            else if (UnaryOperations.ContainsKey(operationString))
+            {
+                return BinaryOperations[operationString];
+            }
+
+            return Operation.None;
+        }
+
         private void SetOperation(object obj)
         {
-            string operation = obj.ToString();
+            Operation operation = CurrentOperator(obj.ToString());
 
             if (double.TryParse(_operandString, out double result))
             {
-                if (BinaryOperations.ContainsKey(operation))
+                if (BinaryOperations.ContainsValue(operation))
                 {
-                    if (operation == "=")
+                    if (operation == Operation.Equal)
                     {
                         _operand2 = result;
+                        DisplayContent = ProcessBinaryOperation(_binaryOperator).ToString();
+                        _binaryOperator = Operation.None;
+                    }
+                    else if (operation == Operation.Percent)
+                    {
+                        _operand2 = result;
+                        _binaryOperator = Operation.Percent;
                         DisplayContent = ProcessBinaryOperation(_binaryOperator).ToString();
                     }
                     else
                     {
                         _operand1 = result;
-                        _binaryOperator = BinaryOperations[operation];
+                        _binaryOperator = operation;
                         _operandString = "";
                         DisplayContent = "";
                     }
                 }
-                else if (UnaryOperations.ContainsKey(operation))
+                else if (UnaryOperations.ContainsValue(operation))
                 {
                     _operand1 = result;
-                    DisplayContent = ProcessUnaryOperation(UnaryOperations[operation]).ToString();
+                    DisplayContent = ProcessUnaryOperation(operation).ToString();
                 }
                 else
                 {
                     DisplayContent = "Unknown Operation Encountered";
                 }
 
-                //
-                // set current number string to new number string
-                //
                 _operandString = DisplayContent;
             }
             else
